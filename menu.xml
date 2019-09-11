@@ -1,0 +1,36 @@
+<b:section class='header-menu' id='header-menu' name='Menu' showaddelement='no'>
+  <b:widget id='LinkList1' locked='true' title='Menu' type='LinkList' version='1'>
+    <b:includable id='main'>
+      <div class='widget-content'>
+        <ul class='menu' itemscope='' itemtype='http://schema.org/SiteNavigationElement'>
+          <b:loop values='data:links' var='link'>
+            <li itemprop='name'><a expr:href='data:link.target' itemprop='url'><data:link.name/></a></li>
+          </b:loop>
+        </ul>
+        <script type='text/javascript'>
+          //<![CDATA[
+          $("#LinkList1").each(function() {
+            var e = "<ul class='menu'><li><ul id='dropdown'>";
+            $("#LinkList1 li").each(function() {
+              var t = $(this).text(),
+                n = t.substr(0, 1),
+                r = t.substr(1);
+              "_" == n ? (n = $(this).find("a").attr("href"), e += '<li><a href="' + n + '">' + r + "</a></li>") : (n = $(this).find("a").attr("href"), e += '</ul></li><li><a href="' + n + '">' + t + "</a><ul id='dropdown'>")
+            });
+            e += "</ul></li></ul>";
+            $(this).html(e);
+            $("#LinkList1 ul").each(function() {
+              var e = $(this);
+              if (e.html().replace(/\s|&nbsp; /g, "").length == 0) e.remove()
+            });
+            $("#LinkList1 li").each(function() {
+              var e = $(this);
+              if (e.html().replace(/\s|&nbsp; /g, "").length == 0) e.remove()
+            })
+          });
+          //]]>
+        </script>
+      </div>
+    </b:includable>
+  </b:widget>
+</b:section>
